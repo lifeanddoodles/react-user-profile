@@ -1,8 +1,10 @@
 const path = require('path');
+const fs = require('fs');
+const url = require('url');
 const Dotenv = require('dotenv-webpack');
 const common = require('./webpack.common');
 const merge = require('webpack-merge');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -11,7 +13,33 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 
-const publicPath = getServedPath(resolveOwn('package.json'));
+const appDirectory = fs.realpathSync(process.cwd());
+const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
+// const resolveOwn = relativePath => path.resolve(__dirname, '..', relativePath);
+const envPublicUrl = process.env.PUBLIC_URL;
+
+function ensureSlash(inputPath, needsSlash) {
+  const hasSlash = inputPath.endsWith('/');
+  if (hasSlash && !needsSlash) {
+    return inputPath.substr(0, inputPath.length - 1);
+  } else if (!hasSlash && needsSlash) {
+    return `${inputPath}/`;
+  } else {
+    return inputPath;
+  }
+}
+
+const getPublicUrl = appPackageJson =>
+  envPublicUrl || require(appPackageJson).homepage;
+
+function getServedPath(appPackageJson) {
+  const publicUrl = getPublicUrl(appPackageJson);
+  const servedUrl =
+    envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
+  return ensureSlash(servedUrl, true);
+}
+
+const publicPath = getServedPath(resolveApp('package.json'));
 const publicUrl = publicPath.slice(0, -1);
 
 module.exports = merge(common, {
@@ -26,7 +54,7 @@ module.exports = merge(common, {
       new OptimizeCssAssetsPlugin(),
       new TerserPlugin(),
       new HtmlWebpackPlugin({
-        template: './public/template.html',
+        template: './public/index.html',
         minify: {
           removeAttributeQuotes: true,
           collapseWhitespace: true,
