@@ -9,7 +9,6 @@ $theme-opacity: (
   // opacity used with lighter colors
     'dark': 0.4,
   // opacity used with darker colors
-    // ... etc.
 );
 
 $color__background-body: theme-color('background');
@@ -21,16 +20,17 @@ $color__link-visited: theme-color('secondary');
 $color__link-hover: theme-color('secondary', 'dark');
 $color__text-main: theme-color('foreground');
 
-$font__main: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-$font__heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-  'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif;
-$font__code: source-code-pro, Menlo, Monaco, Consolas, Courier, 'Andale Mono',
-  'DejaVu Sans Mono', monospace;
-$font__pre: $font__code;
+$font__main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+  Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+$font__heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+  Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+$font__code: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, Courier,
+  monospace;
 $font__line-height-body: 1.6;
 $font__line-height-pre: 1.6;
+
+$padding: 1em;
+$margin__bottom: 1.5rem;
 
 $color__border: theme-color('background', 'light');
 
@@ -58,3 +58,20 @@ $columns: (
 
 $columns__margin: 3.8%;
 $grid__gap: 1em;
+
+$font-size-base: 1rem;
+$logo__height: 4rem;
+$icon-height: 4rem;
+$nav-link-height: 1em;
+$navbar-padding-y: 1em;
+// $nav-height: calc(#{$nav-link-height} + #{$navbar-padding-y});
+$nav-height: 83px;
+$paragraph-margin-bottom: 1.5rem;
+// $footer-height: calc(
+//   #{$navbar-padding-y} * 2 + #{$icon-height} + #{$font-size-base} * #{$font__line-height-body +
+//     #{$paragraph-margin-bottom} * 2}
+// );
+$footer-height: calc(
+  #{$font-size-base * $font__line-height-body} + #{$paragraph-margin-bottom}
+);
+// $footer-height: 65px;

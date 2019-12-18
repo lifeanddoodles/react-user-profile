@@ -1,14 +1,53 @@
-// @each $color, $value in $theme-colors {
-//   .bg-#{$color} {
-//     background-color: $value;
-//   }
-// }
+/**
+ * Abstracts
+ */
 
-// @each $color, $value in $theme-colors {
-//   .text-#{$color} {
-//     color: $value !important;
-//   }
-// }
+// Center block
+@mixin center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Clearfix
+@mixin clearfix() {
+  content: '';
+  display: table;
+  table-layout: fixed;
+}
+
+// Clear after (not all clearfix need this also)
+@mixin clearfix-after() {
+  clear: both;
+}
+
+/**
+ * Typography
+ */
+// Rem output with px fallback
+@mixin font-size($sizeValue: 1) {
+  font-size: ($sizeValue * 16) * 1px;
+  font-size: $sizeValue * 1rem;
+}
+
+/**
+ * Layout
+ */
+// Column width with margin
+@mixin column-width($numberColumns: 3) {
+  width: map-get($columns, $numberColumns) -
+    (($columns__margin * ($numberColumns - 1)) / $numberColumns);
+}
+
+@mixin mq($width: 50em) {
+  @media (min-width: $width) {
+    @content;
+  }
+}
+
+/**
+ * Buttons
+ */
 
 @mixin button-variant(
   $background,
@@ -57,44 +96,7 @@
 
 @each $color-key, $color-variants in $theme-colors {
   $base-color-value: map-get($color-variants, 'base');
-  .btn-#{$color-key} {
+  .button--#{$color-key} {
     @include button-variant($base-color-value, $base-color-value);
-  }
-}
-
-// Rem output with px fallback
-@mixin font-size($sizeValue: 1) {
-  font-size: ($sizeValue * 16) * 1px;
-  font-size: $sizeValue * 1rem;
-}
-
-// Center block
-@mixin center-block {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-// Clearfix
-@mixin clearfix() {
-  content: '';
-  display: table;
-  table-layout: fixed;
-}
-
-// Clear after (not all clearfix need this also)
-@mixin clearfix-after() {
-  clear: both;
-}
-
-// Column width with margin
-@mixin column-width($numberColumns: 3) {
-  width: map-get($columns, $numberColumns) -
-    (($columns__margin * ($numberColumns - 1)) / $numberColumns);
-}
-
-@mixin mq($width: 50em) {
-  @media (min-width: $width) {
-    @content;
   }
 }

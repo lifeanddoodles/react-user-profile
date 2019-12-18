@@ -12,7 +12,7 @@ export default function Home() {
         <i>{process.env.REACT_APP_SECRET_CODE}</i>. You can change it in the{' '}
         <code>.env.{process.env.NODE_ENV}</code> file.
       </p>
-      <button className='btn-primary'>Click me!</button>
+      <button className='button--primary'>Click me!</button>
     </main>
   );
 }
