@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 const Dotenv = require('dotenv-webpack');
 const common = require('./webpack.common');
 const merge = require('webpack-merge');
@@ -8,6 +9,14 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 
 const publicPath = '/';
 const publicUrl = '';
+// App directory
+const appDirectory = fs.realpathSync(process.cwd());
+
+// Gets absolute path of file within app directory
+const resolveAppPath = relativePath => path.resolve(appDirectory, relativePath);
+
+// Host
+const host = process.env.HOST || 'localhost';
 
 module.exports = merge(common, {
   mode: 'development',
@@ -49,5 +58,11 @@ module.exports = merge(common, {
         ]
       }
     ]
+  },
+  devServer: {
+    historyApiFallback: true,
+    hot: true,
+    host,
+    port: process.env.PORT
   }
 });
