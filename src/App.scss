@@ -469,18 +469,22 @@ img {
   margin: 1rem;
 }
 
+.content {
+  > main,
+  > aside {
+    margin: 0 auto;
+    padding: 0 1em;
+    width: 100%;
+    max-width: 65ch;
+  }
+}
+
 aside {
   grid-area: sidebar;
-  padding: 0 1em;
-  max-width: 40ch;
-  // margin-right: auto;
 }
 
 main {
   grid-area: content;
-  padding: 0 1em;
-  max-width: 65ch;
-  // margin-left: auto;
 }
 
 .site-footer {
@@ -500,17 +504,32 @@ main {
 @supports (display: grid) {
   .content {
     flex: 1 0 auto;
-    display: grid;
-    grid-template-rows: 1fr auto;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas:
-      'content'
-      'sidebar';
 
-    @media screen and (min-width: 50em) {
-      grid-gap: 1em;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-areas: 'content content sidebar';
+    &--sidebar {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        'content'
+        'sidebar';
+
+      @media screen and (min-width: 50em) {
+        > main,
+        > aside {
+          margin: initial;
+        }
+
+        grid-gap: 1em;
+        grid-template-columns: repeat(3, 1fr);
+
+        &-first {
+          grid-template-areas: 'sidebar content content';
+        }
+
+        &-last {
+          grid-template-areas: 'content content sidebar';
+        }
+      }
     }
   }
 

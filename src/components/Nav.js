@@ -50,13 +50,18 @@ export default function Nav() {
             </Link>
             <ul className='sub-menu' aria-label='About the Company' role='menu'>
               <li className='menu-item' role='none'>
-                <Link role='menuitem' aria-haspopup='false' to='/notfound'>
-                  Not found
+                <Link role='menuitem' aria-haspopup='false' to='/sidebarleft'>
+                  Sidebar Left
                 </Link>
               </li>
               <li className='menu-item' role='none'>
-                <Link role='menuitem' aria-haspopup='false' to='/services'>
-                  Services
+                <Link role='menuitem' aria-haspopup='false' to='/sidebarright'>
+                  Sidebar Right
+                </Link>
+              </li>
+              <li className='menu-item' role='none'>
+                <Link role='menuitem' aria-haspopup='false' to='/notfound'>
+                  Not found
                 </Link>
               </li>
             </ul>
