@@ -33,47 +33,10 @@ export default function Nav() {
             <Link
               role='menuitem'
               aria-haspopup='false'
-              to='/about'
+              to='/user-profile'
               aria-current='page'
             >
-              About
-            </Link>
-          </li>
-          <li className='menu-item menu-item--has-children'>
-            <Link
-              role='menuitem'
-              aria-haspopup='true'
-              aria-expanded='false'
-              to='/other'
-            >
-              Other pages
-            </Link>
-            <ul className='sub-menu' aria-label='About the Company' role='menu'>
-              <li className='menu-item' role='none'>
-                <Link role='menuitem' aria-haspopup='false' to='/sidebarleft'>
-                  Sidebar Left
-                </Link>
-              </li>
-              <li className='menu-item' role='none'>
-                <Link role='menuitem' aria-haspopup='false' to='/sidebarright'>
-                  Sidebar Right
-                </Link>
-              </li>
-              <li className='menu-item' role='none'>
-                <Link role='menuitem' aria-haspopup='false' to='/notfound'>
-                  Not found
-                </Link>
-              </li>
-            </ul>
-          </li>
-          <li className='menu-item' role='none'>
-            <Link
-              role='menuitem'
-              aria-haspopup='false'
-              to='/contact'
-              aria-current='page'
-            >
-              Contact
+              Profile
             </Link>
           </li>
         </ul>
