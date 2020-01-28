@@ -3,7 +3,12 @@ import React from 'react';
 export default function Hero() {
   return (
     <section className='hero'>
-      <img src='https://source.unsplash.com/random/1600x900' alt='' />
+      <img
+        src='https://source.unsplash.com/random/1280x320'
+        alt=''
+        width='150'
+        height='150'
+      />
     </section>
   );
 }
