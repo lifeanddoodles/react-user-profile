@@ -1,28 +1,24 @@
 import React, { Fragment, useState } from 'react';
+import useFormValidation from './useFromValidation';
+import validateFields from './validateFields';
 
 const INITIAL_STATE = {
   photo: '',
   email: '',
   phone: '',
   address: '',
-  birthday: null,
+  birthday: '',
   security_questions: []
 };
 
 export default function Register() {
-  const [values, setValues] = useState(INITIAL_STATE);
-
-  const handleChange = event => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
-  };
-
-  const handleSubmit = event => {
-    event.preventDefault();
-    console.log(`Submitted`);
-  };
+  const {
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    values,
+    errors
+  } = useFormValidation(INITIAL_STATE, validateFields);
 
   return (
     <Fragment>
@@ -59,6 +55,7 @@ export default function Register() {
             value={values.phone}
             required
             onChange={handleChange}
+            onBlur={handleBlur}
           />
         </div>
         <div className='form__group'>
@@ -68,9 +65,15 @@ export default function Register() {
             name='address'
             id='address'
             value={values.address}
+            minLength='10'
             required
+            pattern='/^[a-zA-Z\s\d\/]*\d[a-zA-Z\s\d\/]*$/'
             onChange={handleChange}
+            onBlur={handleBlur}
           />
+          {errors.address && (
+            <p className='message message--error'>{errors.address}</p>
+          )}
         </div>
         <div className='form__group'>
           <label htmlFor='email'>Email</label>
@@ -80,11 +83,17 @@ export default function Register() {
             id='email'
             value={values.email}
             required
+            placeholder='name@domain.com'
+            pattern='/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i'
             onChange={handleChange}
+            onBlur={handleBlur}
           />
+          {errors.email && (
+            <p className='message message--error'>{errors.email}</p>
+          )}
         </div>
         <div className='form__group'>
-          <label htmlFor='birthday'>Birthday</label>
+          <label htmlFor='birthday'>Birthday (MM/DD/YYYY)</label>
           <input
             type='date'
             name='birthday'
@@ -92,8 +101,13 @@ export default function Register() {
             value={values.birthday}
             required
             placeholder='mm-dd-yyyy'
+            pattern='/^\d{1,2}\/\d{1,2}\/\d{4}$/'
             onChange={handleChange}
+            onBlur={handleBlur}
           />
+          {errors.birthday && (
+            <p className='message message--error'>{errors.birthday}</p>
+          )}
         </div>
         <h2 className='form__section'>Security Questions</h2>
         <p>

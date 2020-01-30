@@ -639,3 +639,16 @@ main {
     }
   }
 }
+
+.message {
+  padding: 0.5em 0.75em;
+
+  input + & {
+    margin-top: -1em;
+  }
+
+  &--error {
+    color: darken(theme-color('error', 'dark'), 20%);
+    background-color: rgba(theme-color('error', 'dark'), 0.5);
+  }
+}
