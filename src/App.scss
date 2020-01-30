@@ -220,7 +220,7 @@ ul[role='menu'] {
   [role='menuitem']:hover,
   [role='menuitem']:focus svg,
   [role='menuitem']:hover svg {
-    background-color: transparent;
+    background-color: theme-color('primary');
     outline: theme-color('primary') dotted 2px;
     color: color-yiq(theme-color('primary'));
   }
@@ -308,7 +308,9 @@ button,
 input,
 optgroup,
 select,
-textarea {
+textarea,
+.button,
+.input {
   font-family: inherit;
   font-size: 100%;
   line-height: 1.15;
@@ -324,7 +326,8 @@ textarea {
 input,
 optgroup,
 select,
-textarea {
+textarea,
+.input {
   outline-offset: -2px;
   border-width: 1px;
   border-style: solid;
@@ -335,7 +338,8 @@ textarea {
 }
 
 button,
-select {
+select,
+.button {
   text-transform: none;
 }
 
@@ -384,9 +388,23 @@ progress {
   -webkit-appearance: none;
 }
 
+[type='file'] {
+  // -webkit-user-select: none;
+  user-select: text;
+  &::before,
+  &::after {
+    -webkit-user-select: none;
+    display: block;
+    margin: 0 auto 1em;
+  }
+}
+
 ::-webkit-file-upload-button {
   -webkit-appearance: button;
   font: inherit;
+  @extend .button;
+  @extend .button--secondary;
+  display: block;
 }
 
 .form {
@@ -431,15 +449,9 @@ progress {
   }
 }
 
-.user-profile {
-  &__avatar {
-    width: 150px;
-  }
-}
-
 /**
 * Interactive
- */
+*/
 
 summary {
   display: list-item;
@@ -490,8 +502,8 @@ img {
 .App {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   position: relative;
+  min-height: 100vh;
 }
 
 .site-header {
@@ -587,4 +599,43 @@ main {
   position: relative;
   left: calc((-100vw + 100%) / 2);
   margin-bottom: 3em;
+}
+
+/**
+ * Media
+ */
+
+.user-profile {
+  &__avatar {
+    width: 150px;
+    padding: 0;
+    background-color: #ccc;
+    position: relative;
+    // background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
+    // background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+  }
+  &__avatar-upload {
+    border: none;
+    position: absolute;
+    margin: 0 auto;
+
+    &::-webkit-file-upload-button {
+      // visibility: hidden;
+      margin-bottom: 0;
+    }
+
+    // &::before {
+    //   content: 'Select some files';
+    // }
+    &:hover::before {
+      // border-color: black;
+    }
+    &:active::before {
+      // background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+    }
+  }
 }

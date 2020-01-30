@@ -62,7 +62,7 @@
 ) {
   color: $color;
   background-color: $background;
-  border-color: $border;
+  border: 1px solid $border;
 
   &:hover {
     color: $hover-color;
