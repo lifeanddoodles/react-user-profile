@@ -1,4 +1,5 @@
 const express = require('express');
+const User = require('./models/User');
 const path = require('path');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
@@ -18,6 +19,7 @@ mongoose.connect(
 // Middleware
 
 // Routes
+app.use('/', require('./routes/index.js'));
 
 app.use(express.static(path.join(__dirname, 'dist')));
 

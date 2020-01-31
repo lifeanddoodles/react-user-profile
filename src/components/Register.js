@@ -45,7 +45,12 @@ export default function Register() {
   return (
     <Fragment>
       <h1>Register</h1>
-      <form action='' className='form user-profile' onSubmit={handleSubmit}>
+      <form
+        action='/register'
+        className='form user-profile'
+        onSubmit={handleSubmit}
+        method='POST'
+      >
         <p>All fields are required.</p>
         <div className='form__section'>
           <h2 className='form__section-title'>User Credentials</h2>
