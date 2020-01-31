@@ -8,7 +8,7 @@
     "server": "nodemon server.js",
     "client": "webpack-dev-server  --config webpack.dev.js --open",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build:client": "webpack --config webpack.prod.js",
+    "build:client": "PUBLIC_URL=/ webpack --config webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -72,9 +72,11 @@
     "clean-webpack-plugin": "^3.0.0",
     "concurrently": "^5.1.0",
     "express": "^4.17.1",
+    "mongoose": "^5.8.10",
     "react": "^16.12.0",
     "react-dev-utils": "^9.1.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }
