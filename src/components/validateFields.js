@@ -14,13 +14,13 @@ export default function validateFields(values) {
     errors.password = 'Password must be at least 6 characters';
   }
   // Password Confirmation Errors
-  if (!values.password2) {
-    errors.password2 = 'Required Password';
-  } else if (values.password2.length < 6) {
-    errors.password2 = 'Password must be at least 6 characters';
-  } else if (errors.password2 !== errors.password) {
-    errors.password2 = 'Confirmed password does not match';
-  }
+  // if (!values.password2) {
+  //   errors.password2 = 'Required Password';
+  // } else if (values.password2.length < 6) {
+  //   errors.password2 = 'Password must be at least 6 characters';
+  // } else if (errors.password2 !== errors.password) {
+  //   errors.password2 = 'Confirmed password does not match';
+  // }
 
   // Address Errors
   // if (!values.address) {

@@ -1,9 +1,11 @@
 const express = require('express');
-const User = require('./models/User');
+const compression = require('compression');
+const bodyParser = require('body-parser');
 const path = require('path');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const User = require('./models/User');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -19,6 +21,11 @@ mongoose.connect(
 
 // Middleware
 app.use(cors());
+// Support Gzip
+app.use(compression());
+// Support post requests with body data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 app.use('/', require('./routes/index.js'));

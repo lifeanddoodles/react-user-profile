@@ -94,9 +94,9 @@ export default function Register() {
               type='password'
               name='password2'
               id='password2'
-              minLength='6'
+              // minLength='6'
               value={values.password2}
-              required
+              // required
               onChange={handleChange}
               onBlur={handleBlur}
               placeholder='Confirm Password'

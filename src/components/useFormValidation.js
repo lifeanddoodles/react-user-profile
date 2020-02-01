@@ -32,26 +32,36 @@ function useFormValidation(initialState, validate) {
 
   const handleSubmit = async event => {
     event.preventDefault();
+    const formEl = event.target;
+    // console.log(formEl);
+    // let formData = new FormData();
+    let formData = new FormData(formEl);
+    // formData.append('username', 'Groucho');
+    // console.log(`FormData: ${formData}`);
+    // for (var i = 0; i < formEl.length; ++i) {
+    //   formData.append(formEl[i].name, formEl[i].value);
+    // }
+    // for (var [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
+    // const params = new URLSearchParams([...new FormData(formEl).entries()]);
+    // console.log(params.json());
+    const { email, password, password2 } = values;
+    // console.log(email);
 
     try {
       const response = await fetch('http://localhost:5000/users/register', {
         method: 'POST',
-        body: { foo: 'bar', bar: 'chaz' }
+        body: JSON.stringify({ email, password, password2 }),
+        headers: { 'Content-Type': 'application/json' }
       });
 
-      console.log('FOO');
-
-      /*
       if (!response.ok) {
         throw new Error(response.status);
-      }*/
-      const data = await response.json();
-      console.log(data);
-
-      // users = data;
-      // console.log(event);
-      console.log(data);
-      console.log(`Submitted`);
+      }
+      const data = await response.text();
+      // const data = await response.json();
+      console.log(`Response: ${data}`);
     } catch (error) {
       console.log(error);
     }
