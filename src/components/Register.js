@@ -46,10 +46,10 @@ export default function Register() {
     <Fragment>
       <h1>Register</h1>
       <form
-        action='/register'
+        // action='/users/register'
         className='form user-profile'
         onSubmit={handleSubmit}
-        method='POST'
+        // method='POST'
       >
         <p>All fields are required.</p>
         <div className='form__section'>
@@ -182,7 +182,7 @@ export default function Register() {
             your password. Choose three questions below.
           </p>
           <div className='form__group'>
-            <label htmlFor='' name='security_question_1'>
+            <label htmlFor='security_question_1' name='security_question_1'>
               Security question 1
             </label>
             <select
@@ -195,7 +195,7 @@ export default function Register() {
             </select>
           </div>
           <div className='form__group'>
-            <label htmlFor='' name='security_question_2'>
+            <label htmlFor='security_question_2' name='security_question_2'>
               Security question 2
             </label>
             <select
@@ -208,7 +208,7 @@ export default function Register() {
             </select>
           </div>
           <div className='form__group'>
-            <label htmlFor='' name='security_question_3'>
+            <label htmlFor='security_question_3' name='security_question_3'>
               Security question 3
             </label>
             <select

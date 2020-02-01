@@ -315,7 +315,7 @@ textarea,
   font-size: 100%;
   line-height: 1.15;
   margin: 0 0 $margin__bottom;
-  padding: 0.5em 1em;
+  padding: 0.5em 0.75em 0.6em;
   border-radius: 3px;
 
   &:focus {
@@ -641,7 +641,7 @@ main {
 }
 
 .message {
-  padding: 0.5em 0.75em;
+  padding: 0.35em 0.75em 0.5em;
 
   input + & {
     margin-top: -1em;

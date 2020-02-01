@@ -3,6 +3,7 @@ const User = require('./models/User');
 const path = require('path');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -17,9 +18,11 @@ mongoose.connect(
 );
 
 // Middleware
+app.use(cors());
 
 // Routes
 app.use('/', require('./routes/index.js'));
+app.use('/users', require('./routes/users.js'));
 
 app.use(express.static(path.join(__dirname, 'dist')));
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import fetch from 'node-fetch';
 
 export const questions = [
   'What was your childhood nickname?',
@@ -29,9 +30,31 @@ function useFormValidation(initialState, validate) {
     setErrors(validationErrors);
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    console.log(`Submitted`);
+
+    try {
+      const response = await fetch('http://localhost:5000/users/register', {
+        method: 'POST',
+        body: { foo: 'bar', bar: 'chaz' }
+      });
+
+      console.log('FOO');
+
+      /*
+      if (!response.ok) {
+        throw new Error(response.status);
+      }*/
+      const data = await response.json();
+      console.log(data);
+
+      // users = data;
+      // console.log(event);
+      console.log(data);
+      console.log(`Submitted`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return {
