@@ -5,12 +5,6 @@ const { body, check, validationResult } = require('express-validator');
 const User = require('../models/User');
 
 // Register
-router.get('/register', async (req, res) => {
-  console.log('Register');
-  res.status(200).send('Register');
-});
-
-// Post register form data
 router.post(
   '/register',
   [
@@ -48,6 +42,14 @@ router.post(
       // console.log(`Email: ${email}`);
       // console.log(`Password: ${password}`);
       // res.status(200).send('Registered');
+      let user = await User.findOne({ email });
+
+      if (user) {
+        return res
+          .status(400)
+          .json({ success: false, msg: 'User already exists' });
+      }
+
       let newUser = new User({
         email,
         password,
@@ -66,27 +68,28 @@ router.post(
 );
 
 // Login
-// Post login form data
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-
-  console.log(`Email: ${email}`);
-  console.log(`Password: ${password}`);
-  res.status(200).send('Logged in');
+  const user = users.find(user => user.email === email);
+  if (user == null) {
+    return res.status(400).send('Cannot find user');
+  }
+  try {
+    if (await bcrypt.compare(req.body.password, user.password)) {
+      res.send('Success');
+    } else {
+      res.send('Not Allowed');
+    }
+  } catch {
+    res.status(500).send();
+  }
+  // console.log(`Email: ${email}`);
+  // console.log(`Password: ${password}`);
+  // res.status(200).send('Logged in');
 });
 
-// router.post('/logout', async (req, res) => {
-//   console.log("You've logged out");
-//   res.status(200).send(req.body);
-// });
-
-// app.post('/login', async (req, res) => {
-//   console.log("You're logged in");
-//   res.status(200).send(req.body);
-// });
-
 // Logout
-// app.post('/logout', async (req, res) => {
+// router.post('/logout', async (req, res) => {
 //   console.log("You've logged out");
 //   res.status(200).send(req.body);
 // });
