@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
-import useFormValidation, { questions } from './useFormValidation';
-import validateFields from './validateFields';
+import useFormValidation, { questions } from '../helpers/useFormValidation';
+import loginValidation from '../helpers/validation';
 
 const INITIAL_STATE = {
   email: '',
@@ -14,12 +14,17 @@ export default function Login() {
     handleSubmit,
     values,
     errors
-  } = useFormValidation(INITIAL_STATE, validateFields);
+  } = useFormValidation(INITIAL_STATE, loginValidation);
 
   return (
     <Fragment>
       <h1>Login</h1>
-      <form className='form user-profile' onSubmit={handleSubmit}>
+      <form
+        action='http://localhost:5000/users/login'
+        className='form user-profile'
+        method='POST'
+        onSubmit={handleSubmit}
+      >
         <p>All fields are required.</p>
         <div className='form__group'>
           <label htmlFor='email'>Email</label>
@@ -57,7 +62,7 @@ export default function Login() {
           )}
         </div>
         <button className='button--accent' type='submit'>
-          Create Account
+          Log In
         </button>
       </form>
     </Fragment>

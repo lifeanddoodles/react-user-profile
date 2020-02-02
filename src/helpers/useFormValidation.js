@@ -31,23 +31,23 @@ function useFormValidation(initialState, validate) {
   };
 
   const handleSubmit = async event => {
-    event.preventDefault();
+    // event.preventDefault();
 
-    const { email, password, password2, phone } = values;
+    const form = event.target;
 
     try {
-      const response = await fetch('http://localhost:5000/users/register', {
-        method: 'POST',
-        body: JSON.stringify({ email, password, password2, phone }),
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: JSON.stringify(values),
         headers: { 'Content-Type': 'application/json' }
       });
 
       if (!response.ok) {
         throw new Error(response.status);
       }
-      const data = await response.text();
-      // const data = await response.json();
-      console.log(`Response: ${data}`);
+      // const data = await response.text();
+      const data = await response.json();
+      // console.log(`Response: ${data}`);
     } catch (error) {
       console.log(error);
     }

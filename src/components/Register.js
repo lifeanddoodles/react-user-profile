@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
-import useFormValidation, { questions } from './useFormValidation';
-import validateFields from './validateFields';
+import useFormValidation, { questions } from '../helpers/useFormValidation';
+import registerValidation from '../helpers/validation';
 
 const INITIAL_STATE = {
   email: '',
@@ -20,7 +20,7 @@ export default function Register() {
     handleSubmit,
     values,
     errors
-  } = useFormValidation(INITIAL_STATE, validateFields);
+  } = useFormValidation(INITIAL_STATE, registerValidation);
 
   const [selectedQuestions, setQuestions] = useState({});
 
@@ -45,7 +45,12 @@ export default function Register() {
   return (
     <Fragment>
       <h1>Register</h1>
-      <form className='form user-profile' onSubmit={handleSubmit}>
+      <form
+        action='http://localhost:5000/users/register'
+        className='form user-profile'
+        method='POST'
+        onSubmit={handleSubmit}
+      >
         <p>All fields are required.</p>
         <div className='form__section'>
           <h2 className='form__section-title'>User Credentials</h2>

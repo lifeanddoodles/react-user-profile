@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { body, check, validationResult } = require('express-validator');
-// const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
+const bcrypt = require('bcrypt');
+const http = require('http');
+
 const User = require('../models/User');
 
 // Register
@@ -28,8 +30,8 @@ router.post(
     }),
     check('phone', 'Phone number is required')
       .notEmpty()
-      .isLength(10)
-      .withMessage('Phone number must contain 10 characters')
+      .isLength({ min: 10, max: 15 })
+      .withMessage('Phone number must contain 10-15 characters')
       .isMobilePhone()
       .withMessage('Must provide a valid phone number')
   ],
@@ -39,9 +41,6 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     } else {
-      // console.log(`Email: ${email}`);
-      // console.log(`Password: ${password}`);
-      // res.status(200).send('Registered');
       let user = await User.findOne({ email });
 
       if (user) {
@@ -70,22 +69,22 @@ router.post(
 // Login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  const user = users.find(user => user.email === email);
+
+  let user = await User.findOne({ email });
+
   if (user == null) {
     return res.status(400).send('Cannot find user');
   }
   try {
-    if (await bcrypt.compare(req.body.password, user.password)) {
-      res.send('Success');
+    if (await bcrypt.compare(password, user.password)) {
+      res.redirect(303, 'http://localhost:5000/user-profile');
+      // res.setHeader('Location', 'http://localhost:5000/user-profile');
     } else {
       res.send('Not Allowed');
     }
   } catch {
     res.status(500).send();
   }
-  // console.log(`Email: ${email}`);
-  // console.log(`Password: ${password}`);
-  // res.status(200).send('Logged in');
 });
 
 // Logout
