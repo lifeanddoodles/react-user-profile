@@ -10,8 +10,8 @@ export default function Home() {
         <Hero />
         <h1>Instructions</h1>
         <p>Register/login to view your profile.</p>
-        {/* <Register /> */}
-        <Login />
+        <Register />
+        {/* <Login /> */}
         <form action='/logout?_method=DELETE' method='POST'>
           <button type='submit'>Log Out</button>
         </form>

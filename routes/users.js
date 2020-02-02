@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { body, check, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const http = require('http');
 
 const User = require('../models/User');
@@ -38,9 +39,11 @@ router.post(
   async (req, res, next) => {
     const { email, password, password2, phone } = req.body;
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     } else {
+      // Check if user is already in the database
       let user = await User.findOne({ email });
 
       if (user) {
@@ -49,6 +52,7 @@ router.post(
           .json({ success: false, msg: 'User already exists' });
       }
 
+      // Create a new user
       let newUser = new User({
         email,
         password,
@@ -59,7 +63,18 @@ router.post(
         if (err) {
           res.json({ success: false, msg: 'Failed to register user' });
         } else {
-          res.json({ success: true, msg: 'User registered' });
+          const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+          console.log(token);
+          res.header('auth-token', token).send(token);
+          res.json({
+            success: true,
+            msg: 'User registered',
+            token: `Bearer ${token}`,
+            user: {
+              id: user._id,
+              email: user.email
+            }
+          });
         }
       });
     }
@@ -69,16 +84,29 @@ router.post(
 // Login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-
+  // Check if user is already in the database
   let user = await User.findOne({ email });
 
   if (user == null) {
     return res.status(400).send('Cannot find user');
   }
   try {
+    // Check if password is correct
     if (await bcrypt.compare(password, user.password)) {
-      res.redirect(303, 'http://localhost:5000/user-profile');
-      // res.setHeader('Location', 'http://localhost:5000/user-profile');
+      // res.redirect(303, 'http://localhost:5000/user-profile');
+      // Create and assign a token
+      const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+
+      res.header('auth-token', token).send(token);
+      res.json({
+        success: true,
+        msg: 'Successfully logged in',
+        token: `Bearer ${token}`,
+        user: {
+          id: user._id,
+          email: user.email
+        }
+      });
     } else {
       res.send('Not Allowed');
     }

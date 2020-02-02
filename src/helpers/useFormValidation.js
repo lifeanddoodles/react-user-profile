@@ -31,7 +31,7 @@ function useFormValidation(initialState, validate) {
   };
 
   const handleSubmit = async event => {
-    // event.preventDefault();
+    event.preventDefault();
 
     const form = event.target;
 
