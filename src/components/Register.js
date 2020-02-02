@@ -45,12 +45,7 @@ export default function Register() {
   return (
     <Fragment>
       <h1>Register</h1>
-      <form
-        // action='/users/register'
-        className='form user-profile'
-        onSubmit={handleSubmit}
-        // method='POST'
-      >
+      <form className='form user-profile' onSubmit={handleSubmit}>
         <p>All fields are required.</p>
         <div className='form__section'>
           <h2 className='form__section-title'>User Credentials</h2>
@@ -63,7 +58,7 @@ export default function Register() {
               value={values.email}
               required
               placeholder='name@domain.com'
-              // pattern='/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i'
+              pattern='^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$'
               onChange={handleChange}
               onBlur={handleBlur}
             />
@@ -78,6 +73,7 @@ export default function Register() {
               name='password'
               id='password'
               minLength='6'
+              maxLength='20'
               value={values.password}
               required
               onChange={handleChange}
@@ -94,9 +90,10 @@ export default function Register() {
               type='password'
               name='password2'
               id='password2'
-              // minLength='6'
+              minLength='6'
+              maxLength='20'
               value={values.password2}
-              // required
+              required
               onChange={handleChange}
               onBlur={handleBlur}
               placeholder='Confirm Password'
@@ -108,7 +105,7 @@ export default function Register() {
         </div>
         <div className='form__section'>
           <h2 className='form__section-title'>User Details</h2>
-          <div className='form__group'>
+          {/* <div className='form__group'>
             <label htmlFor='photo'>Photo</label>
             <div className='input user-profile__avatar'>
               <input
@@ -127,7 +124,7 @@ export default function Register() {
                 height='150'
               />
             </div>
-          </div>
+          </div> */}
           <div className='form__group'>
             <label htmlFor='phone'>Phone Number</label>
             <input
@@ -135,12 +132,14 @@ export default function Register() {
               name='phone'
               id='phone'
               value={values.phone}
-              // required
+              minLength='10'
+              maxLength='15'
+              required
               onChange={handleChange}
               onBlur={handleBlur}
             />
           </div>
-          <div className='form__group'>
+          {/* <div className='form__group'>
             <label htmlFor='address'>Address</label>
             <input
               type='text'
@@ -219,7 +218,7 @@ export default function Register() {
               <option value=''>Select a question</option>
               {options}
             </select>
-          </div>
+          </div> */}
         </div>
         <button className='button--accent' type='submit'>
           Create Account
