@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react';
-import useFormValidation, { questions } from '../helpers/useFormValidation';
-import loginValidation from '../helpers/validation';
+import useFormValidation, {
+  questions
+} from '../../backend/helpers/useFormValidation';
+import loginValidation from '../../backend/helpers/validation';
 
 const INITIAL_STATE = {
   email: '',
@@ -25,7 +27,7 @@ export default function Login() {
         method='POST'
         onSubmit={handleSubmit}
       >
-        <p>All fields are required.</p>
+        <p>Login to view your profile. All fields are required.</p>
         <div className='form__group'>
           <label htmlFor='email'>Email</label>
           <input

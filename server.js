@@ -5,7 +5,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const User = require('./models/User');
+const User = require('./backend/models/User');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -28,8 +28,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
-app.use('/', require('./routes/index.js'));
-app.use('/users', require('./routes/users.js'));
+app.use('/', require('./backend/routes/index.js'));
+app.use('/users', require('./backend/routes/users.js'));
 
 app.use(express.static(path.join(__dirname, 'dist')));
 

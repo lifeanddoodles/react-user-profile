@@ -1,6 +1,8 @@
 import React, { Fragment, useState } from 'react';
-import useFormValidation, { questions } from '../helpers/useFormValidation';
-import registerValidation from '../helpers/validation';
+import useFormValidation, {
+  questions
+} from '../../backend/helpers/useFormValidation';
+import registerValidation from '../../backend/helpers/validation';
 
 const INITIAL_STATE = {
   email: '',
@@ -51,7 +53,7 @@ export default function Register() {
         method='POST'
         onSubmit={handleSubmit}
       >
-        <p>All fields are required.</p>
+        <p>Create an account to view your profile. All fields are required.</p>
         <div className='form__section'>
           <h2 className='form__section-title'>User Credentials</h2>
           <div className='form__group'>

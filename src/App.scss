@@ -362,6 +362,21 @@ button,
   }
 }
 
+.button {
+  &--link {
+    @extend a;
+    background-color: none;
+    border: none;
+    display: inline;
+    padding: 0;
+
+    &:hover,
+    &:focus {
+      @extend a:hover;
+    }
+  }
+}
+
 fieldset {
   padding: 0.35em 0.75em 0.625em;
 }
@@ -599,6 +614,7 @@ main {
   position: relative;
   left: calc((-100vw + 100%) / 2);
   margin-bottom: 3em;
+  margin-top: -2em;
 }
 
 /**
