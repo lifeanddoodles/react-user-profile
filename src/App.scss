@@ -423,7 +423,7 @@ progress {
 }
 
 .form {
-  &__section {
+  &__section-title {
     @include font-size(1.25);
   }
   &__group {
@@ -615,6 +615,10 @@ main {
   left: calc((-100vw + 100%) / 2);
   margin-bottom: 3em;
   margin-top: -2em;
+
+  &__image {
+    background-color: #ccc;
+  }
 }
 
 /**
@@ -623,7 +627,6 @@ main {
 
 .user-profile {
   &__avatar {
-    width: 150px;
     padding: 0;
     background-color: #ccc;
     position: relative;
@@ -637,21 +640,10 @@ main {
   &__avatar-upload {
     border: none;
     position: absolute;
-    margin: 0 auto;
+    align-self: center;
 
     &::-webkit-file-upload-button {
-      // visibility: hidden;
       margin-bottom: 0;
-    }
-
-    // &::before {
-    //   content: 'Select some files';
-    // }
-    &:hover::before {
-      // border-color: black;
-    }
-    &:active::before {
-      // background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
     }
   }
 }
@@ -659,7 +651,8 @@ main {
 .message {
   padding: 0.35em 0.75em 0.5em;
 
-  input + & {
+  input + &,
+  select + & {
     margin-top: -1em;
   }
 

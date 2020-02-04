@@ -1,6 +1,4 @@
-import React, { Fragment, useState } from 'react';
-import useFormValidation from '../../backend/helpers/useFormValidation';
-import { questions } from '../../backend/helpers/questions';
+import React, { Fragment } from 'react';
 import registerValidation from '../../backend/helpers/validation';
 
 const INITIAL_STATE = {
@@ -11,52 +9,19 @@ const INITIAL_STATE = {
   phone: '',
   address: '',
   birthday: '',
-  security_questions: [],
-  security_answer_1: '',
-  security_answer_2: '',
-  security_answer_3: ''
+  security_questions: []
 };
 
-export default function Register() {
-  const {
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    values,
-    errors
-  } = useFormValidation(INITIAL_STATE, registerValidation);
-
-  const [selectedQuestions, setQuestions] = useState({});
-
-  const options = questions.map(question => {
-    const isDisabled = Object.values(selectedQuestions).includes(question.text);
-
-    return (
-      <option disabled={isDisabled} value={question.text} key={question.id}>
-        {question.text}
-      </option>
-    );
-  });
-
-  const selectQuestion = event => {
-    const { name, value } = event.target;
-    setQuestions({
-      ...selectedQuestions,
-      [name]: value
-    });
-    values.security_questions = selectedQuestions;
-  };
-
+export default function Profile() {
   return (
     <Fragment>
-      <h1>Register</h1>
+      <h1>User Profile</h1>
       <form
-        action='http://localhost:5000/users/register'
+        action='http://localhost:5000/users/update'
         className='form user-profile'
         method='POST'
         onSubmit={handleSubmit}
       >
-        <p>Create an account to view your profile. All fields are required.</p>
         <div className='form__section'>
           <h2 className='form__section-title'>User Credentials</h2>
           <div className='form__group'>
@@ -124,7 +89,7 @@ export default function Register() {
                 id='photo'
                 accept='.jpg, .jpeg, .png'
                 className='user-profile__avatar-upload'
-                // required
+                required
                 onChange={handleChange}
               />
               <img
@@ -148,9 +113,6 @@ export default function Register() {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {errors.phone && (
-              <p className='message message--error'>{errors.phone}</p>
-            )}
           </div>
           <div className='form__group'>
             <label htmlFor='address'>Address</label>
@@ -200,32 +162,11 @@ export default function Register() {
             <select
               name='security_question_1'
               id='security_question_1'
-              required
               onChange={selectQuestion}
             >
               <option value=''>Select a question</option>
               {options}
             </select>
-            {errors.security_question_1 && (
-              <p className='message message--error'>
-                {errors.security_question_1}
-              </p>
-            )}
-            <label htmlFor='security_answer_1'>Answer for question 1</label>
-            <input
-              type='text'
-              name='security_answer_1'
-              id='security_answer_1'
-              value={values.security_answer_1}
-              required
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {errors.security_answer_1 && (
-              <p className='message message--error'>
-                {errors.security_answer_1}
-              </p>
-            )}
           </div>
           <div className='form__group'>
             <label htmlFor='security_question_2' name='security_question_2'>
@@ -234,32 +175,11 @@ export default function Register() {
             <select
               name='security_question_2'
               id='security_question_2'
-              required
               onChange={selectQuestion}
             >
               <option value=''>Select a question</option>
               {options}
             </select>
-            {errors.security_question_2 && (
-              <p className='message message--error'>
-                {errors.security_question_2}
-              </p>
-            )}
-            <label htmlFor='security_answer_2'>Answer for question 2</label>
-            <input
-              type='text'
-              name='security_answer_2'
-              id='security_answer_2'
-              value={values.security_answer_2}
-              required
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {errors.security_answer_2 && (
-              <p className='message message--error'>
-                {errors.security_answer_2}
-              </p>
-            )}
           </div>
           <div className='form__group'>
             <label htmlFor='security_question_3' name='security_question_3'>
@@ -268,36 +188,15 @@ export default function Register() {
             <select
               name='security_question_3'
               id='security_question_3'
-              required
               onChange={selectQuestion}
             >
               <option value=''>Select a question</option>
               {options}
             </select>
-            {errors.security_question_3 && (
-              <p className='message message--error'>
-                {errors.security_question_3}
-              </p>
-            )}
-            <label htmlFor='security_answer_3'>Answer for question 3</label>
-            <input
-              type='text'
-              name='security_answer_3'
-              id='security_answer_3'
-              value={values.security_answer_3}
-              required
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            {errors.security_answer_3 && (
-              <p className='message message--error'>
-                {errors.security_answer_3}
-              </p>
-            )}
           </div>
         </div>
         <button className='button--accent' type='submit'>
-          Create Account
+          Save Changes
         </button>
       </form>
     </Fragment>
