@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import registerValidation from '../../backend/helpers/validation';
+import registerValidation from '../../backend/utils/validation';
 
 const INITIAL_STATE = {
   email: '',

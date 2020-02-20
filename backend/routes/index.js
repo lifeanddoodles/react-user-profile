@@ -6,6 +6,12 @@ const verify = require('../helpers/auth');
 // router.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
 
 // User Profile
-router.get('/user-profile', verify, (req, res) => res.send(req.user.email));
+// @route   GET user-profile
+// @desc    Show user's profile page
+// @access  Private
+// router.get('/user-profile', verify, (req, res) => res.send(req.user.email));
+router.get('/user-profile', verify, (req, res) =>
+  res.json({ success: true, user: { id: req.user._id } })
+);
 
 module.exports = router;

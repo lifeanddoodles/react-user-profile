@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
-import useFormValidation from '../../backend/helpers/useFormValidation';
+import useFormValidation from '../../backend/utils/useFormValidation';
+import registerValidation from '../../backend/utils/validation';
 import { questions } from '../../backend/helpers/questions';
-import registerValidation from '../../backend/helpers/validation';
 
 const INITIAL_STATE = {
   email: '',

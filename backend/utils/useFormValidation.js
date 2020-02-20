@@ -32,8 +32,8 @@ function useFormValidation(initialState, validate) {
       if (!response.ok) {
         throw new Error(response.status);
       }
-      // const data = await response.text();
-      const data = await response.json();
+      // const data = await response.json();
+      const data = await response.text();
       // console.log(`Response: ${data}`);
     } catch (error) {
       console.log(error);

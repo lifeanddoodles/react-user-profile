@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import useFormValidation, {
   questions
-} from '../../backend/helpers/useFormValidation';
-import loginValidation from '../../backend/helpers/validation';
+} from '../../backend/utils/useFormValidation';
+import loginValidation from '../../backend/utils/validation';
 
 const INITIAL_STATE = {
   email: '',
