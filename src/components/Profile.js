@@ -1,5 +1,7 @@
-import React, { Fragment } from 'react';
-import registerValidation from '../../backend/utils/validation';
+import React, { Fragment, useState } from 'react';
+import useFormValidation from '../../backend/utils/useFormValidation';
+import loginValidation from '../../backend/utils/validation';
+import { questions } from '../../backend/helpers/questions';
 
 const INITIAL_STATE = {
   email: '',
@@ -13,6 +15,35 @@ const INITIAL_STATE = {
 };
 
 export default function Profile() {
+  const {
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    values,
+    errors
+  } = useFormValidation(INITIAL_STATE, loginValidation);
+
+  const [selectedQuestions, setQuestions] = useState({});
+
+  const options = questions.map(question => {
+    const isDisabled = Object.values(selectedQuestions).includes(question.text);
+
+    return (
+      <option disabled={isDisabled} value={question.text} key={question.id}>
+        {question.text}
+      </option>
+    );
+  });
+
+  const selectQuestion = event => {
+    const { name, value } = event.target;
+    setQuestions({
+      ...selectedQuestions,
+      [name]: value
+    });
+    values.security_questions = selectedQuestions;
+  };
+
   return (
     <Fragment>
       <h1>User Profile</h1>

@@ -97,7 +97,7 @@ router.get('/user', verify, async (req, res) => {
   if (user == null) {
     return res.status(400).json({ msg: 'Cannot find user' });
   }
-  return res.json({ success: true, msg: 'User found', user: user });
+  return res.json({ success: true, msg: 'User found', user });
 });
 
 module.exports = router;
